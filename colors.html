@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Colors.html</title>
+    <script type="text/javascript">
+
+    var colors;
+    var XMLHttpRequestObject = false;
+
+    if(window.XMLHttpRequest){
+      XMLHttpRequestObject = new XMLHttpRequest();
+      XMLHttpRequestObject.overrideMimeType("text/xml");
+    } else if(window.ActiveXObject){
+      XMLHttpRequestObject = new  ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    function getData(dataSource,divID){
+      if(XMLHttpRequestObject){
+        var obj = document.getElementById(divID);
+        XMLHttpRequestObject.open("GET",dataSource);
+
+        XMLHttpRequestObject.onreadystatechange = function(){
+          if(XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) {
+            var xmlDocument = XMLHttpRequestObject.responseXML;
+            colors = xmlDocument.getElementsByTagName("color");
+            obj.innerHTML = "Here are the fetched colors : <ul>";
+            for(loopIndex = 0; loopIndex < colors.length; loopIndex++){
+              obj.innerHTML  += "<li>" + colors[loopIndex].firstChild.data + "</li>";
+            }
+            obj.innerHTML += "</ul>";
+          }
+        }
+        XMLHttpRequestObject.send(null);
+      }
+    }
+
+    </script>
+  </head>
+
+  <body>
+
+    <h1>Sending data to the server with POST</h1>
+    <form>
+      <input type="button" value="Fetch the message 1" onclick="getData('dataresponderpost.php','targetDiv',1)">
+      <input type="button" value="Fetch the message 2" onclick="getData('dataresponderpost.php','targetDiv',2)">
+    </form>
+
+    <div id="targetDiv">
+      <p>The fetched data will appear here</p>
+    </div>
+  </body>
+</html>
