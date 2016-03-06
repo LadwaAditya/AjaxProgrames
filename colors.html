@@ -38,14 +38,13 @@
 
   <body>
 
-    <h1>Sending data to the server with POST</h1>
+    <h1>Using Ajax with XML</h1>
     <form>
-      <input type="button" value="Fetch the message 1" onclick="getData('dataresponderpost.php','targetDiv',1)">
-      <input type="button" value="Fetch the message 2" onclick="getData('dataresponderpost.php','targetDiv',2)">
+      <input type="button" value="Fetch the Colors" onclick="getData('colors.xml','targetDiv')">
     </form>
 
-    <div id="targetDiv">
-      <p>The fetched data will appear here</p>
+    <div id="targetDiv" width=100 height=100>
+      The list of colors will appear here
     </div>
   </body>
 </html>
